@@ -1,3 +1,5 @@
+#ifdef USE_TINYPROFILER
+
 struct {
   int i;
   long int sample_count;
@@ -78,3 +80,14 @@ static inline void profPrintAndFree()
   fprintf(stderr, ",{\"ph\":\"%c\",\"ts\":%zu,\"pid\":%d,\"tid\":%d,\"name\":\"%s\"}\n", 'E', _prof_time(), 0, 0, "profPrintAndFree()");
   fprintf(stderr, "]}\n");
 }
+
+#else // USE_TINYPROFILER
+
+#define profAlloc(samples)
+#define profB(name)
+#define profE(name)
+#define profBmt(tid, name)
+#define profEmt(tid, name)
+#define profPrintAndFree()
+
+#endif // USE_TINYPROFILER
